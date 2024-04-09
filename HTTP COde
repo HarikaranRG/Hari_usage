@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Function to print success or failure message based on HTTP error code
+print_message() {
+    local code="$1"
+    if [[ "$code" -ge 200 && "$code" -lt 300 ]]; then
+        echo "Success! HTTP status code: $code"
+    else
+        echo "Failure! HTTP status code: $code"
+    fi
+}
+
+# Fetch HTTP status code of guvi.in
+http_code=$(curl -s -o /dev/null -w "%{http_code}" https://guvi.in)
+
+# Print success/failure message based on HTTP status code
+print_message "$http_code"
+
+# Replace occurrences of "give" with "learning" from 5th line till the end in lines containing "welcome"
+sed -i '5,$s/give/learning/g' your_file.txt
